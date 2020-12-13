@@ -1,7 +1,7 @@
 # cianyyz fork of Lackey
 
 ## Improvements
-- Added mouse click speed
+- Added mouse click speed ( Use Mouse().click(loc, button, duration) instead of click(args))
 
 ## Bug Fixes
 - Fixed the ability to set observable events to active or inactive
