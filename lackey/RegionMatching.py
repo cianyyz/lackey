@@ -1636,8 +1636,9 @@ class Region(object):
         (Default for min_changed_pixels is set in Settings.ObserveMinChangedPixels)
 
         The ``handler`` function should take one parameter, an ObserveEvent object
-        (see below). This event is ignored in the future unless the handler calls
-        the repeat() method on the provided ObserveEvent object.
+        (see below).
+
+        CIAN FORK: This event will continue to listen
 
         Returns the event's ID as a string.
         """
@@ -1950,8 +1951,8 @@ class Observer(object):
                 else:
                     self.caught_events.append(change_event)
                 event["count"] += 1
-                # Event handlers are inactivated after being caught once
-                event["active"] = False
+                # In this version on change doesn't quit once its triggered.
+                event["active"] = True
 
 
 class ObserveEvent(object):
