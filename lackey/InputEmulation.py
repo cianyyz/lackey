@@ -289,6 +289,7 @@ class Keyboard(object):
         """ Accepts a string of keys (including special keys wrapped in brackets or provided
         by the Key or KeyModifier classes). Holds down all of them. """
         if not isinstance(keys, basestring):
+            print("Failed keys down ", keys)
             raise TypeError("keyDown expected keys to be a string")
         in_special_code = False
         special_code = ""
