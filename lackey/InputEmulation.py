@@ -79,7 +79,6 @@ class Mouse(object):
 
         Use button constants Mouse.LEFT, Mouse.MIDDLE, Mouse.RIGHT
         """
-        print("CLICKING")
         if loc is not None:
             self.moveSpeed(loc,seconds=duration)
         self._lock.acquire()
