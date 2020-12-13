@@ -72,7 +72,7 @@ class Mouse(object):
             """)
         self._lock.release()
 
-    def click(self, loc=None, button=mouse.LEFT, seconds=0.3):
+    def click(self, loc=None, button=mouse.LEFT, duration=0.3):
         """ Clicks the specified mouse button.
 
         If ``loc`` is set, move the mouse to that Location first.
@@ -81,7 +81,7 @@ class Mouse(object):
         """
         print("CLICKING")
         if loc is not None:
-            self.moveSpeed(loc,seconds=seconds)
+            self.moveSpeed(loc,seconds=duration)
         self._lock.acquire()
         mouse.click(button)
         self._lock.release()
