@@ -1,6 +1,6 @@
 # Dev notes
 /dev_notes
-
+.venv
 # Coverage report
 /htmlcov
 .coverage

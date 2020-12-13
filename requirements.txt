@@ -9,6 +9,7 @@ opencv-python
 wheel
 pyperclip
 keyboard>=v0.9.13
+mouse
 twine
 pytesseract
 mouse
