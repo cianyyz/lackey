@@ -27,7 +27,7 @@ setup(
     long_description="""Lackey is an implementation of Sikuli script, using image recognition
     to control complex and non-OS-standard business applications. Potential applications include 
     automating tedious workflows, routine user interface testing, etc.""",
-    url="https://github.com/glitchassassin/lackey",
+    url="https://github.com/cianyyz/lackey",
     author="Jon Winsley",
     author_email="jon.winsley@gmail.com",
     license="MIT",
