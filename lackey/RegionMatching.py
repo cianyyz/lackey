@@ -1870,11 +1870,11 @@ class Observer(object):
 
     def inactivate_event(self, name):
         if name in self._events:
-            self._events[name].active = False
+            self._events[name]["active"] = False
 
     def activate_event(self, name):
         if name in self._events:
-            self._events[name].active = True
+            self._events[name]["active"] = True
 
     def has_events(self):
         return len(self._events) > 0

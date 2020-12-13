@@ -1,3 +1,13 @@
+# cianyyz fork of Lackey
+
+## Improvements
+- Added mouse click speed
+
+## Bug Fixes
+- Fixed the ability to set observable events to active or inactive
+
+
+
 # Lackey #
 ## A Graphical Python Automation Suite ##
 [![Documentation Status](https://readthedocs.org/projects/lackey/badge/?version=latest)](http://lackey.readthedocs.io/en/latest/?badge=latest) [![Develop Documentation Status](https://readthedocs.org/projects/lackey/badge/?version=develop)](http://lackey.readthedocs.io/en/latest/?badge=develop) [![Build status](https://ci.appveyor.com/api/projects/status/l1q68dnp6vm8sre9?svg=true)](https://ci.appveyor.com/project/glitchassassin/lackey) ![Coverage](https://cdn.rawgit.com/glitchassassin/lackey/develop/coverage.svg)
