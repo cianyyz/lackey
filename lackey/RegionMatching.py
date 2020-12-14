@@ -709,7 +709,6 @@ class Region(object):
                     break
 
         if match is None:
-            print(pattern)
             Debug.info("Couldn't find '{}' with enough similarity.".format(pattern.path))
             return None
 
