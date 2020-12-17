@@ -730,7 +730,7 @@ class Region(object):
         self._lastMatchTime = (time.time() - find_time) * 1000 # Capture find time in milliseconds
         return self._lastMatch
 
-    def click(self, target=None, modifiers=""):
+    def click(self, target=None, duration=0.3, modifiers=""):
         """ Moves the cursor to the target location and clicks the default mouse button. """
         if target is None:
             target = self._lastMatch or self # Whichever one is not None
@@ -751,7 +751,7 @@ class Region(object):
         if modifiers != "":
             keyboard.keyDown(modifiers)
 
-        Mouse.moveSpeed(target_location, Settings.MoveMouseDelay)
+        Mouse.moveSpeed(target_location, duration)
         time.sleep(0.1) # For responsiveness
         if Settings.ClickDelay > 0:
             time.sleep(min(1.0, Settings.ClickDelay))

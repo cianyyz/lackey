@@ -7,6 +7,8 @@ import time
 import keyboard
 import mouse
 
+from .RegionMatching import Match, Pattern, Region, Location
+
 # Python 3 compatibility
 try:
     basestring
@@ -79,6 +81,19 @@ class Mouse(object):
 
         Use button constants Mouse.LEFT, Mouse.MIDDLE, Mouse.RIGHT
         """
+        target_location = None
+        if isinstance(loc, Pattern):
+            target_location = self.find(loc).getTarget()
+        elif isinstance(loc, basestring):
+            target_location = self.find(loc).getTarget()
+        elif isinstance(loc, Match):
+            target_location = loc.getTarget()
+        elif isinstance(loc, Region):
+            target_location = loc.getCenter()
+        elif isinstance(loc, Location):
+            target_location = loc
+        else:
+            raise TypeError("click expected Pattern, String, Match, Region, or Location object")
         if loc is not None:
             self.moveSpeed(loc,seconds=duration)
         self._lock.acquire()
