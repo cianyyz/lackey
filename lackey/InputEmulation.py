@@ -7,7 +7,7 @@ import time
 import keyboard
 import mouse
 
-from .RegionMatching import Match, Pattern, Region, Location
+
 
 # Python 3 compatibility
 try:
