@@ -104,9 +104,9 @@ class Location(object):
         from .RegionMatching import Mouse
         RegionMatching.Mouse.moveSpeed(self)
         return self
-    def click(self):
+    def click(self, duration=0.3):
         from .RegionMatching import Mouse
-        RegionMatching.Mouse.moveSpeed(self)
+        RegionMatching.Mouse.moveSpeed(self, duration)
         RegionMatching.Mouse.click()
         return self
     def doubleClick(self):
