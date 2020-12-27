@@ -1701,7 +1701,7 @@ class Region(object):
     def setRepeatWaitTime(self, wait_time):
         """ Sets the wait time before repeating a search """
         self._repeatWaitTime = wait_time
-    def observeInBackground(self, seconds=None):
+    def observeInBackground(self, seconds=None, id=None):
         """ As Region.observe(), but runs in a background process, allowing the rest
         of your script to continue.
 
@@ -1713,6 +1713,9 @@ class Region(object):
         if self._observer.isRunning:
             return False
         self._observer_process = multiprocessing.Process(target=self.observe, args=(seconds,))
+        # if id is not None:
+        #     self._observer_process.name = id
+        # print(self._observer_process.name)
         self._observer_process.start()
         return True
     def stopObserver(self):
@@ -1875,6 +1878,8 @@ class Observer(object):
     def activate_event(self, name):
         if name in self._events:
             self._events[name]["active"] = True
+        # else:
+        #     print("event id is invalid for the event trying to be activated")
 
     def has_events(self):
         return len(self._events) > 0
@@ -1915,33 +1920,40 @@ class Observer(object):
             if event_type == "APPEAR" and self._region.exists(event["pattern"], 0):
                 # Call the handler with a new ObserveEvent object
                 appear_event = ObserveEvent(self._region,
+                                            name=event_name,
+                                            observer = self,
                                             count=event["count"],
                                             pattern=event["pattern"],
                                             event_type=event["event_type"])
+                
+                # Event handlers are inactivated after being caught once
+                event["active"] = False
                 if callable(handler):
                     handler(appear_event)
                 self.caught_events.append(appear_event)
                 event["count"] += 1
-                # Event handlers are inactivated after being caught once
-                event["active"] = False
             elif event_type == "VANISH" and not self._region.exists(event["pattern"], 0):
                 # Call the handler with a new ObserveEvent object
                 vanish_event = ObserveEvent(self._region,
+                                            name=event_name,
+                                            observer = self,
                                             count=event["count"],
                                             pattern=event["pattern"],
                                             event_type=event["event_type"])
+                event["active"] = False
                 if callable(handler):
                     handler(vanish_event)
                 else:
                     self.caught_events.append(vanish_event)
                 event["count"] += 1
                 # Event handlers are inactivated after being caught once
-                event["active"] = False
             # For a CHANGE event, ``pattern`` is a tuple of
             # (min_pixels_changed, original_region_state)
             elif event_type == "CHANGE" and self._region.isChanged(*event["pattern"]):
                 # Call the handler with a new ObserveEvent object
                 change_event = ObserveEvent(self._region,
+                                            name=event_name,
+                                            observer = self,
                                             count=event["count"],
                                             pattern=event["pattern"],
                                             event_type=event["event_type"])
@@ -1949,19 +1961,22 @@ class Observer(object):
                     handler(change_event)
                 else:
                     self.caught_events.append(change_event)
+                event["pattern"] = (event["pattern"][0], self._region.getBitmap())
                 event["count"] += 1
                 # In this version on change doesn't quit once its triggered.
                 event["active"] = True
 
 
 class ObserveEvent(object):
-    def __init__(self, region=None, count=0, pattern=None, match=None, event_type="GENERIC"):
+    def __init__(self, region=None, count=0, pattern=None, match=None, event_type="GENERIC", name=None, observer=None):
         self._valid_types = ["APPEAR", "VANISH", "CHANGE", "GENERIC", "FINDFAILED", "MISSING"]
         self._type = event_type
         self._region = region
         self._pattern = pattern
         self._match = match
         self._count = count
+        self.name = name
+        self.observer = observer
     def getType(self):
         return self._type
     def isAppear(self):
@@ -2003,6 +2018,12 @@ class ObserveEvent(object):
         return self._match
     def getCount(self):
         return self._count
+    def repeat(self):
+        print("repeating")
+        if self.observer is not None:
+            self.observer.activate_event(self.name)
+        else:
+            print("ERROR REPEATING")
 class FindFailedEvent(ObserveEvent):
     def __init__(self, *args, **kwargs):
         ObserveEvent.__init__(self, *args, **kwargs)

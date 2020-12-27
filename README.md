@@ -3,6 +3,9 @@
 ## Improvements
 - Added mouse click speed ( Use Mouse().click(loc, button, duration) instead of click(args))
 
+- Added repeat
+()
+
 ## Bug Fixes
 - Fixed the ability to set observable events to active or inactive
 
