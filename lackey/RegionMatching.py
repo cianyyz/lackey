@@ -2019,7 +2019,7 @@ class ObserveEvent(object):
     def getCount(self):
         return self._count
     def repeat(self):
-        print("repeating")
+        # print("repeating")
         if self.observer is not None:
             self.observer.activate_event(self.name)
         else:
